@@ -8,8 +8,7 @@ pipeline {
         }
          stage('Report') {
                     steps {
-                        //publishHTML([reportName  : 'Allure Report', reportDir: 'target/site/allure-maven-plugin', reportFiles: 'index.html',
-                                    // reportTitles: '', allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false])
+                        
                         allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
                     }
                 }
