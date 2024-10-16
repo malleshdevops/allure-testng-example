@@ -12,7 +12,7 @@
 
     <groupId>io.qameta.allure</groupId>
     <artifactId>allure-testng-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <allure.version>2.13.2</allure.version>
