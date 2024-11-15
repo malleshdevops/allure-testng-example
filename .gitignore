@@ -11,3 +11,18 @@ target
 *.classpath
 *.project
 *.pydevproject
+
+# Maven
+target/
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE-specific
+*.iml
+.idea/
+*.class
+
+

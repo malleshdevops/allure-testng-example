@@ -1,0 +1,15 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: C:/app/
+hooks:
+  BeforeInstall:
+    - location: scripts/install-codedeploy.ps1
+      timeout: 300
+    - location: scripts/stop-tomcat.ps1
+      timeout: 300
+  AfterInstall:
+    - location: scripts/start-tomcat.ps1
+      timeout: 300
+
