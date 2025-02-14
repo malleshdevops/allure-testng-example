@@ -24,6 +24,11 @@ pipeline {
                 allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
             }
         }
+        stage('archive'){
+          steps{
+              archive 'target/*.jar'
+          }
+        }
         stage('finger prints'){
             steps{
                 fingerprint 'target/*.jar'
