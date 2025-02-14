@@ -22,5 +22,7 @@ pipeline {
         stage("allure report"){
             steps{
                 allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+            }
+        }
     }
 }
