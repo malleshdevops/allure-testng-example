@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GH_TOKEN = credentials('github-token')
-        REPO_URL = 'https://github.com/your-org/your-repo.git'
+        REPO_URL = 'https://github.com/malleshdevops/allure-testng-example.git'
         BRANCH = 'fix-vulnerabilities-' + UUID.randomUUID().toString().take(6)
         CSV_FILE = 'vulnerability_report.csv'
     }
@@ -70,7 +70,7 @@ pipeline {
                     "head": "'${BRANCH}'",
                     "base": "main",
                     "body": "This PR fixes vulnerabilities detected by Jenkins build ${BUILD_NUMBER}."
-                }' https://api.github.com/repos/your-org/your-repo/pulls
+                }' https://api.github.com/repos/malleshdevops/allure-testng-example/pulls
                 '''
             }
         }
