@@ -1,9 +1,11 @@
 pipeline {
     agent any
-
+    
     environment {
         GH_TOKEN = credentials('github-token')
-        REPO_URL = 'https://github.com/malleshdevops/allure-testng-example.git'
+        REPO_URL = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
+        REPO_OWNER = sh(script: "basename $(dirname $(git config --get remote.origin.url))", returnStdout: true).trim()
+        REPO_NAME = sh(script: "basename -s .git $(git config --get remote.origin.url)", returnStdout: true).trim()
         BRANCH = 'fix-vulnerabilities-' + UUID.randomUUID().toString().take(6)
         CSV_FILE = 'vulnerability_report.csv'
     }
@@ -31,10 +33,10 @@ pipeline {
                     def snykReport = readFile('snyk-report.json')
 
                     if (trivyReport.contains('"VulnerabilityID"') || snykReport.contains('"vulnerabilities"')) {
-                        echo 'Vulnerabilities found! Attempting to fix...'
+                        echo "Vulnerabilities found! Attempting to fix..."
                         sh 'python fix_vulnerabilities.py'
                     } else {
-                        echo 'No critical vulnerabilities found.'
+                        echo "No critical vulnerabilities found."
                     }
                 }
             }
@@ -54,7 +56,7 @@ pipeline {
             steps {
                 script {
                     sh "git checkout -b ${BRANCH}"
-                    sh 'git add .'
+                    sh "git add ."
                     sh "git commit -m 'Auto-fix vulnerabilities [Jenkins Build: ${BUILD_NUMBER}]'"
                     sh "git push origin ${BRANCH}"
                 }
@@ -70,7 +72,7 @@ pipeline {
                     "head": "'${BRANCH}'",
                     "base": "main",
                     "body": "This PR fixes vulnerabilities detected by Jenkins build ${BUILD_NUMBER}."
-                }' https://api.github.com/repos/malleshdevops/allure-testng-example/pulls
+                }' https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/pulls
                 '''
             }
         }
