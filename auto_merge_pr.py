@@ -2,7 +2,7 @@ import requests
 import os
 
 GITHUB_TOKEN = os.getenv("GH_TOKEN")
-REPO = "your-org/your-repo"
+REPO = "malleshdevops/allure-testng-example"
 HEAD_BRANCH = os.getenv("BRANCH")
 
 # Get the PR ID
