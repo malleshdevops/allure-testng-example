@@ -23,7 +23,22 @@ pipeline {
                 git branch: 'master', url: "${REPO_URL}"
             }
         }
-
+       stage('Install Dependencies') {
+            steps {
+                script {
+                    sh '''
+                    if ! command -v trivy &> /dev/null; then
+                        echo "Installing Trivy..."
+                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+                    fi
+                    if ! command -v snyk &> /dev/null; then
+                        echo "Installing Snyk..."
+                        npm install -g snyk
+                    fi
+                    '''
+                }
+            }
+        }
         stage('Scan for Vulnerabilities') {
             steps {
                 sh 'trivy image --severity HIGH,CRITICAL --format json your-docker-image:latest > trivy-report.json'
