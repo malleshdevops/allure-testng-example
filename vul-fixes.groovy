@@ -32,12 +32,7 @@ pipeline {
                         mkdir -p $HOME/.local/bin
                         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/.local/bin
                     fi
-                    if ! command -v node &> /dev/null; then
-                        echo "Installing Node.js..."
-                        curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
-                        sudo bash /tmp/nodesource_setup.sh
-                        sudo apt-get install -y nodejs
-                    fi
+                    
                     if ! command -v npm &> /dev/null; then
                         echo "Installing npm..."
                         sudo apt-get install -y npm
