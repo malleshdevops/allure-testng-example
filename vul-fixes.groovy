@@ -44,7 +44,7 @@ pipeline {
         stage('Scan for Vulnerabilities') {
             steps {
                 sh 'trivy image --severity HIGH,CRITICAL --format json testimage:latest > trivy-report.json'
-                sh 'snyk test --json > snyk-report.json'
+                sh 'sudo snyk test --json > snyk-report.json'
                 sh 'cp trivy-report.json before_fix_trivy.json'
                 sh 'cp snyk-report.json before_fix_snyk.json'
             }
@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script {
                     sh 'trivy image --severity HIGH,CRITICAL --format testimage:latest > after_fix_trivy.json'
-                    sh 'snyk test --json > after_fix_snyk.json'
+                    sh 'sudo snyk test --json > after_fix_snyk.json'
                     sh 'python generate_report.py ${CSV_FILE} ${BUILD_NUMBER}'
                 }
             }
