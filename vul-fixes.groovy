@@ -35,15 +35,15 @@ pipeline {
                     if ! command -v node &> /dev/null; then
                         echo "Installing Node.js..."
                         curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-                        apt-get install -y nodejs
+                        sudo apt-get install -y nodejs
                     fi
                     if ! command -v npm &> /dev/null; then
                         echo "Installing npm..."
-                        apt-get install -y npm
+                        sudo apt-get install -y npm
                     fi
                     if ! command -v snyk &> /dev/null; then
                         echo "Installing Snyk..."
-                        npm install -g snyk
+                        sudo npm install -g snyk
                     fi
                     '''
                 }
