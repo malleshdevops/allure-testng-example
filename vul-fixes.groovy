@@ -6,11 +6,18 @@ pipeline {
         REPO_URL = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
         REPO_OWNER = sh(script: "basename \$(dirname \$(git config --get remote.origin.url))", returnStdout: true).trim()
         REPO_NAME = sh(script: "basename -s .git \$(git config --get remote.origin.url)", returnStdout: true).trim()
-        BRANCH = 'fix-vulnerabilities-' + UUID.randomUUID().toString().take(6)
         CSV_FILE = 'vulnerability_report.csv'
     }
 
     stages {
+        stage('Initialize') {
+            steps {
+                script {
+                    BRANCH = "fix-vulnerabilities-${UUID.randomUUID().toString().take(6)}"
+                    env.BRANCH = BRANCH
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: "${REPO_URL}"
