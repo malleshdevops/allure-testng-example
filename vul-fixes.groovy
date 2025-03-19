@@ -29,7 +29,8 @@ pipeline {
                     sh '''
                     if ! command -v trivy &> /dev/null; then
                         echo "Installing Trivy..."
-                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+                        mkdir -p $HOME/.local/bin
+                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/.local/bin
                     fi
                     if ! command -v snyk &> /dev/null; then
                         echo "Installing Snyk..."
