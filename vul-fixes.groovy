@@ -32,6 +32,15 @@ pipeline {
                         mkdir -p $HOME/.local/bin
                         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/.local/bin
                     fi
+                    if ! command -v node &> /dev/null; then
+                        echo "Installing Node.js..."
+                        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+                        apt-get install -y nodejs
+                    fi
+                    if ! command -v npm &> /dev/null; then
+                        echo "Installing npm..."
+                        apt-get install -y npm
+                    fi
                     if ! command -v snyk &> /dev/null; then
                         echo "Installing Snyk..."
                         npm install -g snyk
