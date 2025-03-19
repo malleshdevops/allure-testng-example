@@ -34,7 +34,8 @@ pipeline {
                     fi
                     if ! command -v node &> /dev/null; then
                         echo "Installing Node.js..."
-                        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+                        curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+                        sudo bash /tmp/nodesource_setup.sh
                         sudo apt-get install -y nodejs
                     fi
                     if ! command -v npm &> /dev/null; then
