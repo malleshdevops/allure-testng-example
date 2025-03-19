@@ -32,12 +32,6 @@ pipeline {
                         mkdir -p $HOME/.local/bin
                         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/.local/bin
                     fi
-                    
-                    
-                    if ! command -v snyk &> /dev/null; then
-                        echo "Installing Snyk..."
-                        sudo npm install -g snyk
-                    fi
                     '''
                 }
             }
